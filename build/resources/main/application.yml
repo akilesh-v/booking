@@ -1,0 +1,38 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    password: postgres
+    url: jdbc:postgresql://localhost/booking
+    username: postgres
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        envers:
+          default_schema: audit
+    show-sql: true
+    ddl-auto: validate
+    format_sql: true
+
+  flyway:
+    enabled: true
+    url: jdbc:postgresql://localhost/booking
+    user: postgres
+    password: postgres
+    baseline-on-migrate: true
+
+server:
+  port: 8182
+
+# Swagger enable and disable config; possible values [tru/false]
+springfox:
+  documentation:
+    enabled=: true
+
+logging.level.org.hibernate.SQL: DEBUG
+logging.level.org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+
+spring.servlet.multipart.max-file-size: 128MB
+spring.servlet.multipart.max-request-size: 128MB
+spring.servlet.multipart.enabled: true
