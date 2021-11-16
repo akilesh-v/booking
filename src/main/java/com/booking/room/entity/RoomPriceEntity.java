@@ -17,7 +17,6 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Audited
 public class RoomPriceEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

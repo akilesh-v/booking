@@ -15,7 +15,6 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Audited
 public class RoomsMasterEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

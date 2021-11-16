@@ -10,4 +10,4 @@ createdb -U postgres -h localhost  booking
 ./gradlew clean build
 
 #Start the service
-java -Dspring.config.location=src/main/resources/application.yml  -jar build/libs/room-0.0.1-SNAPSHOT.jar
+java -Dspring.config.location=src/main/resources/application.yml  -jar build/libs/room.jar
