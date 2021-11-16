@@ -32,24 +32,41 @@ public class RoomBookingEntity {
     @Column(name="adult_count")
     private Integer adultCount;
 
+    @Column(name="child_count")
+    private Integer childCount;
+
     @ElementCollection
     @Column(name="child_age")
     private List<Integer> childAge;
 
-    @OneToOne
-    @JoinColumn(name = "room_id", referencedColumnName = "id",insertable = false,updatable = false)
-    private RoomsMasterEntity roomMaster;
+    @Column(name="max_child_age_limit")
+    private Integer maxChildAgeLimit;
 
-    @ManyToOne
-    @JoinColumn(name = "room_id", referencedColumnName = "room_id",insertable = false,updatable = false)
-    private RoomPriceEntity roomPrice;
+    @Column(name="total_amount")
+    private Double totalAmount;
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(name = "booking_detail",joinColumns = @JoinColumn(name = "booking_id"))
+    @AttributeOverrides({
+            @AttributeOverride(name = "priceFromDate",column = @Column(name = "price_from_date")),
+            @AttributeOverride(name = "priceToDate",column = @Column(name = "price_to_date")),
+            @AttributeOverride(name = "basePrice",column = @Column(name = "base_price")),
+            @AttributeOverride(name = "extraAdultPrice",column = @Column(name = "extra_adult_price")),
+            @AttributeOverride(name = "extraChildPrice",column = @Column(name = "extra_child_price")),
+            @AttributeOverride(name = "totalPeriodCost",column = @Column(name = "total_period_cost")),
+    })
+    private List<RoomBookingDtlEntity> roomBookingDtlEntities;
     
     public RoomBookingEntity(RoomBookingRequest roomBookingRequest){
         this.roomId=roomBookingRequest.getRoomId();
         this.bookingFromDate=roomBookingRequest.getBookingFromDate();
         this.bookingToDate=roomBookingRequest.getBookingToDate();
-        this.adultCount=roomBookingRequest.getAdultCount();
+        this.adultCount=roomBookingRequest.getProcessAdultCount();
+        this.childCount=roomBookingRequest.getProcessChildCount();
         this.childAge=roomBookingRequest.getChildsAge();
+        this.maxChildAgeLimit = roomBookingRequest.getMaxChildAgeLimit();
+        this.totalAmount = roomBookingRequest.getTotalRoomCost();
+        this.roomBookingDtlEntities = roomBookingRequest.getRoomBookingDtlEntities();
     }
 
 }

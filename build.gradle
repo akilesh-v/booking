@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.booking'
-version = '0.0.1-SNAPSHOT'
+version = ''
 sourceCompatibility = '11'
 
 configurations {
@@ -25,6 +25,7 @@ dependencies {
 	implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
 	implementation 'org.hibernate:hibernate-envers'
 	implementation 'org.flywaydb:flyway-core'
+	implementation 'org.hibernate:hibernate-envers'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'org.postgresql:postgresql'
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'

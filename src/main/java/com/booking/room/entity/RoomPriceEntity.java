@@ -5,8 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
@@ -15,8 +17,13 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Audited
 public class RoomPriceEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "room_price_id")
+    private Long roomPriceId;
+
     @Column(name = "room_id")
     private Long roomId;
 
@@ -35,16 +42,17 @@ public class RoomPriceEntity {
     @Column(name = "extra_child_price")
     private Double extraChildPrice;
 
-    @OneToOne
-    @JoinColumn(name = "room_id", referencedColumnName = "id",insertable = false,updatable = false)
-    private RoomsMasterEntity roomMaster;
+    @Column(name = "base_adult_count")
+    private Integer baseAdultCount;
 
     public RoomPriceEntity(RoomPriceRequest roomPriceRequest){
         this.roomId= roomPriceRequest.getRoomId();
+        this.basePrice = roomPriceRequest.getBasePrice();
         this.priceRangeFrom=roomPriceRequest.getPriceRangeFrom();
         this.priceRangeTo=roomPriceRequest.getPriceRangeTo();
         this.extraAdultPrice=roomPriceRequest.getExtraAdultPrice();
         this.extraChildPrice=roomPriceRequest.getExtraChildPrice();
+        this.baseAdultCount=2;
     }
 
 }
